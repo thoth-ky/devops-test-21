@@ -12,10 +12,10 @@
   * Use Ansible/Chef/Puppet as the configuration management tool.
   * The infrastructure provider should be AWS.
   * It should run on Ubuntu 18.04, using security best practices.
-  * Should leverage community roles/cookbooks/modules when it make sense.
-  * Make sure to include a appropriate methods so that all roles/cookbooks/modules can be installed when ran.
-
-  * A clean bare minimum working infrastructure is preferred than a full blown solution pieced together with scissors, rope and duct tape. Do not skip security considerations.
+  * Should leverage community roles/cookbooks/modules when it makes sense.
+  * Make sure to include any appropriate methods so that all roles/cookbooks/modules can be installed when ran.
+  
+  * A clean bare minimum working infrastructure is preferable than a full blown solution pieced together with scissors, rope and duct tape. Do not skip security considerations.
 
 ## When you are finished
   * Submit your solution to a Github repository and send us a link.
