@@ -11,7 +11,7 @@
 
   * Use Ansible/Chef/Puppet as the configuration management tool.
   * The infrastructure provider should be AWS.
-  * It should run on Centos 7, using security best practices.
+  * It should run on Ubuntu 18.04, using security best practices.
   * Should leverage community roles/cookbooks/modules when it make sense.
   * Make sure to include a appropriate methods so that all roles/cookbooks/modules can be installed when ran.
 
@@ -25,3 +25,6 @@
 ## Bonus Points
   * For setting up frontend proxy to use ssl.
   * Setting frontend proxy to redirect to ssl when request is coming over http.
+  * If you can document all aspects of your code, in the README and within the code itself.
+  * If you can generate the self signed cert/key.
+  * If you can make this run all in one playbook.
