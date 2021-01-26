@@ -1,4 +1,4 @@
-# DevOps Engineer - technical interview
+# DevOps Engineer - Technical Challenge
 
 ## Testing goals
   * With this test, we want to see your ability to create an entire infrastructure from scratch as well as your skills as a system administrator.
