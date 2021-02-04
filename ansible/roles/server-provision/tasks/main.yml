@@ -24,12 +24,14 @@
         cidr_ip: 0.0.0.0/0
   register: firewall_sg
 
+# Create ec2 key to use for ssh into server
 - name: Create a new EC2 key
   ec2_key:
     name: "{{ project_name }}-lw"
     region: "{{ region }}"
-    key_material: "{{ lookup('file', '/home/thoth/.ssh/id_rsa.pub') }}" # local path to my SSH key
+    key_material: "{{ lookup('file', '/home/thoth/.ssh/id_rsa.pub') }}" #TODO: make dynamic local path to my SSH key
 
+# using above key and security group create EC2 isntance
 - name: Create an EC2 instance
   ec2:
     key_name: "{{ project_name }}-lw"

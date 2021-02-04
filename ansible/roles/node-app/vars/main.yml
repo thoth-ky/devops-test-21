@@ -1,4 +1,10 @@
 ---
 # vars file for node-app
-documentroot: "/var/www/webapp"
+documentroot: "/var/www/html"
+server_hostname: kyalo.co.ke
 httpport: 80
+key_size: 4096
+key_type: RSA
+country_name: KE
+email_address: jmutuku95@gmail.com
+organization_name: Trinity
