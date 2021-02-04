@@ -1,0 +1,7 @@
+---
+# handlers file for node-app
+# restart whenever config is updated
+- name: nginx service restart
+  service:
+    name: nginx
+    state: restarted

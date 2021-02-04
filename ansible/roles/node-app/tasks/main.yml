@@ -1,0 +1,28 @@
+---
+# tasks file for node-app
+
+- name: installing nginx
+  apt:
+    name: "nginx"
+    state: latest
+
+- name: starting nginx
+  service:
+    name: "nginx"
+    state: started
+  become: yes
+
+- name: configuring nginx
+  copy:
+    src: templates/nginx.conf
+    dest: /etc/nginx/conf.d
+
+- name: copying web page 
+  copy:
+    src: files/index.html
+    dest: /usr/share/nginx/html/
+
+- name: nginx restart
+  service:
+    name: "nginx"
+    state: restarted

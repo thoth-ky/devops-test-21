@@ -1,0 +1,4 @@
+---
+# vars file for node-app
+documentroot: "/var/www/webapp"
+httpport: 80
