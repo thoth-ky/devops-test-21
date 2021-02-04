@@ -1,0 +1,6 @@
+# Configure Web server
+- hosts: tag_Name_webserver
+  become: yes
+  become_user: root
+  roles:
+  - node-app
