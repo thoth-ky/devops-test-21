@@ -22,9 +22,16 @@
     src: templates/nginx.conf
     dest: /etc/nginx/conf.d/
 
-- name: copying web page 
+# - name: copying web page 
+#   copy:
+#     src: files/index.html
+#     dest: /var/www/html/
+
+- name: copy build folder of nodejs app
   copy:
-    src: files/index.html
+    # react-app
+    # ansible/roles/node-app/tasks/main.yml
+    src: ../../../react-app/build
     dest: /var/www/html/
 
 - name: delete default nginx site
