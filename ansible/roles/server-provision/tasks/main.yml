@@ -1,0 +1,50 @@
+---
+# tasks file for server-provision
+
+- name: Create security group
+  ec2_group:
+    name: "{{ project_name }}_sg"
+    description: "{{ project_name }} security group"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp  # ssh
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp  # http
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp  # https
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: firewall_sg
+
+- name: Create a new EC2 key
+  ec2_key:
+    name: "{{ project_name }}-lw"
+    region: "{{ region }}"
+    key_material: "{{ lookup('file', '/home/thoth/.ssh/id_rsa.pub') }}" # local path to my SSH key
+
+- name: Create an EC2 instance
+  ec2:
+    key_name: "{{ project_name }}-lw"
+    region: "{{ region }}"
+    group_id: "{{ firewall_sg.group_id }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ ami_id }}"
+    wait: yes
+    instance_tags:
+      Name: "{{ tag_name }}"
+    exact_count: "{{ count }}"
+    count_tag:
+      Name: "{{ tag_name }}"
+    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    assign_public_ip: yes
+    aws_access_key: "{{ accesskey }}"
+    aws_secret_key: "{{ secretkey }}"
+  register: ec2

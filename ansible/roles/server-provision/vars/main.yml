@@ -1,0 +1,13 @@
+---
+# vars file for server-provision
+
+region: us-east-1
+instance_type: t2.micro
+ami_id: ami-00ddb0e5626798373 # Ubuntu Server 18.04 LTS (HVM)
+project_name: node-app
+vpc_subnet_id: subnet-4b818165 # subnet taken from aws
+tag_name: "none"
+count: 1
+accesskey: "none"
+secretkey: "none"
+# ec2Key: "ec2key"
