@@ -10,4 +10,16 @@ tag_name: "none"
 count: 1
 accesskey: "none"
 secretkey: "none"
-# ec2Key: "ec2key"
+# VPC
+vpc_cidr: 10.10.0.0/24
+vpc_name: "Ansible VPC"
+
+# Subnet
+subnet_name: "Ansible Subnet"
+subnet_cidr: 10.10.0.0/26
+
+# Internet Gateway Name
+igw_name: "Traffic IGW"
+
+# route name
+route_name: "Route IGW"

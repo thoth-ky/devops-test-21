@@ -1,10 +1,63 @@
 ---
 # tasks file for server-provision
+# Create a VPC
+
+- name: create VPC
+  ec2_vpc_net:
+    name: "{{ vpc_name }}"
+    cidr_block: "{{ vpc_cidr }}"
+    region: "{{ region }}"
+    state: present
+    aws_access_key: "{{ accesskey }}"
+    aws_secret_key: "{{ secretkey }}"
+  register: vpc
+
+# Create Subnet
+
+- name: associate subnet to the VPC
+  ec2_vpc_subnet:
+    state: present
+    vpc_id: "{{ vpc.vpc.id }}"
+    region: "{{ region }}"
+    cidr: "{{ subnet_cidr }}"
+    aws_access_key: "{{ accesskey }}"
+    aws_secret_key: "{{ secretkey }}"
+    map_public: yes
+    resource_tags:
+      Name: "{{ subnet_name }}"
+  register: subnet
+
+- name: create IGW
+  ec2_vpc_igw:
+    vpc_id: "{{ vpc.vpc.id }}"
+    region: "{{ region }}"
+    aws_access_key: "{{ accesskey }}"
+    aws_secret_key: "{{ secretkey }}"
+    state: "present"
+    tags:
+      Name: "{{ igw_name }}"
+  register: igw
+
+- name: Route IGW
+  ec2_vpc_route_table:
+    vpc_id: "{{ vpc.vpc.id }}"
+    region: "{{ region }}"
+    aws_access_key: "{{ accesskey }}"
+    aws_secret_key: "{{ secretkey }}"
+    subnets:
+      - "{{ subnet.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id  }}"
+    tags:
+      Name: "{{ route_name }}"
+
 
 - name: Create security group
   ec2_group:
     name: "{{ project_name }}_sg"
     description: "{{ project_name }} security group"
+    vpc_id: "{{ vpc.vpc.id }}"
     region: "{{ region }}"
     rules:
       - proto: tcp  # ssh
@@ -45,8 +98,14 @@
     exact_count: "{{ count }}"
     count_tag:
       Name: "{{ tag_name }}"
-    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    vpc_subnet_id: "{{ subnet.subnet.id }}"
     assign_public_ip: yes
     aws_access_key: "{{ accesskey }}"
     aws_secret_key: "{{ secretkey }}"
   register: ec2
+
+
+# await to complete setup of ec2 instance
+- name: Sleep for 120 seconds and continue with play
+  wait_for:
+    timeout: 120
