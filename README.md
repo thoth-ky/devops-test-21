@@ -11,32 +11,40 @@
 ## Setup
 
 1. Install ansible from requirements and install collection dependencies
-```bash
+    ```bash
     $  pip install -r python-requirements.txt
     $ ansible-galaxy collection install community.crypto  # used for generating SSL certs/key
     $ ansible-galaxy collection install amazon.aws # create aws resources
 
-```
+    ```
 
 2. Acquire Ansible vault password (from me/admin) or replace `ansible/secret.yml` with your own key as:
     ```
-        akey: "YOUR_AWS_ACESS_KEY"
-        skey: "YOUR_AWS_SECRET_KEY"
+    akey: "YOUR_AWS_ACESS_KEY"
+    skey: "YOUR_AWS_SECRET_KEY"
     ```
     and then encrypt with
     ```bash
-        ansible-vault encrypt secret.yml
+    ansible-vault encrypt secret.yml
     ```
 3. Set AWS credentials in the env
     ```bash
-        $ export AWS_REGION="YOUR_DESIRED_REGION"
-        $ export AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY"
-        $ export AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_KEY"
+    $ export AWS_REGION="YOUR_DESIRED_REGION"
+    $ export AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY"
+    $ export AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_KEY"
     ```
-4. Using `vaultpass` as the file containing your encryption pasword. Run the playbook
+4. `CD` to the `react-app` folder and run the build after installing dependencies. The build folder is waht shall be deployed to production though Ansible.
     ```bash
-        $ ansible-playbook --vault-password-file=vaultpass final-playbook.yml
+    $ yarn install
+    $ yarn build
     ```
+5.. Using `vaultpass` as the file containing your encryption pasword. Run the playbook
+
+```bash
+
+    $ ansible-playbook --vault-password-file=vaultpass final-playbook.yml
+
+```
 
 
 ## Achievements
