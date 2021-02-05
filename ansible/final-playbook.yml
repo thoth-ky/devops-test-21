@@ -5,6 +5,13 @@
   roles:
   - role: server-provision
     count: 1
-    tag_name: "webserver"
+    tag_name: "web"
     accesskey: "{{ akey }}"
     secretkey: "{{ skey }}"
+
+# Configure Web server
+- hosts: tag_Name_web
+  become: yes
+  become_user: root
+  roles:
+  - node-app

@@ -1,5 +1,5 @@
 # Configure Web server
-- hosts: tag_Name_webserver
+- hosts: tag_Name_web
   become: yes
   become_user: root
   roles:
